@@ -21,6 +21,37 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnNavCTA')?.addEventListener('click', scrollToForm);
     document.getElementById('btnScrollToForm')?.addEventListener('click', scrollToForm);
 
+    // ── PWA Install Logic ─────────────────────────────────────────────────
+    let deferredPrompt;
+    const btnInstallApp = document.getElementById('btnInstallApp');
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(console.error);
+        });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        btnInstallApp?.classList.remove('hidden');
+    });
+
+    btnInstallApp?.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            btnInstallApp.classList.add('hidden');
+        }
+        deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+        btnInstallApp?.classList.add('hidden');
+        deferredPrompt = null;
+    });
+
     const formatter = new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP', minimumFractionDigits: 0 });
 
     // ── Score card picker ─────────────────────────────────────────────────

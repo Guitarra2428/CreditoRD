@@ -844,7 +844,7 @@ body {
 
 
 /* =========================================
-   NAVBAR CTA BUTTON
+   NAVBAR & PWA INSTALL BUTTON
    ========================================= */
 .btn-nav-cta {
     background: var(--primary);
@@ -862,6 +862,28 @@ body {
 .btn-nav-cta:hover {
     background: var(--primary-hover);
     transform: translateY(-1px);
+}
+
+.btn-install {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-install:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 
 /* =========================================
