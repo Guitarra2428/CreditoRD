@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
     const WEBHOOK_URL = 'https://primary-env.up.railway.app/webhook/credito-rd-public-eval';
 
     // ── DOM refs ──────────────────────────────────────────────────────────
