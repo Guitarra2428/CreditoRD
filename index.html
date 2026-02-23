@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="CreditoRD - Descubre tu perfil crediticio en segundos. Pre-califica gratis sin registro. Herramienta educativa para consumidores dominicanos.">
+    <title>CreditoRD | Pre-Califica tu Crédito Gratis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ========= NAVBAR ========= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-ranking-star"></i> Credito<span class="highlight">RD</span>
+        </div>
+        <div class="nav-links">
+            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#educacion-financiera">Educación Financiera</a>
+        </div>
+        <button class="btn-nav-cta" id="btnNavCTA">Evalúame Gratis</button>
+    </nav>
+
+    <!-- ========= HERO SECTION ========= -->
+    <section class="hero" id="heroSection">
+        <div class="main-container">
+            <div class="hero-layout">
+                <div class="hero-text">
+                    <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Herramienta 100% Educativa y
+                        Gratuita</div>
+                    <h1>Descubre tu <span class="gradient-text">Poder Financiero</span> en Segundos</h1>
+                    <p>Ingresa tus datos de forma segura (sin registro) y recibe un diagnóstico inmediato sobre los
+                        productos financieros a los que calificarías en República Dominicana.</p>
+                    <div class="trust-badges">
+                        <span><i class="fa-solid fa-lock"></i> 100% Confidencial</span>
+                        <span><i class="fa-solid fa-bolt"></i> Resultados Instantáneos</span>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="card form-card" id="formCard">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar" style="width: 50%"></div>
+                    </div>
+                    <div class="step-indicator">
+                        <span id="stepLabel">Paso 1 de 2 — Situación Financiera</span>
+                    </div>
+
+                    <form id="evaluationForm">
+                        <!-- ===== STEP 1 ===== -->
+                        <div id="step1Panel">
+                            <h2>Tu Situación Financiera</h2>
+                            <p class="subtitle">Tus datos quedan 100% en tu dispositivo.</p>
+
+                            <div class="form-group grid-2">
+                                <div>
+                                    <label>Ingreso Mensual (RD$)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-money-bill-wave"></i>
+                                        <input type="number" id="income" placeholder="Ej. 35000" min="1">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Gastos Fijos Mensuales (RD$)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-wallet"></i>
+                                        <input type="number" id="expenses" placeholder="Ej. 15000" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group grid-2">
+                                <div>
+                                    <label>Edad</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-regular fa-calendar"></i>
+                                        <input type="number" id="age" placeholder="Ej. 28" min="16" max="100">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Tiempo en su empleo (Meses)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-briefcase"></i>
+                                        <input type="number" id="employment" placeholder="Ej. 12" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-primary" id="btnNextStep">
+                                Siguiente <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- ===== STEP 2 ===== -->
+                        <div id="step2Panel" class="hidden">
+                            <h2>Tu Historial Crediticio</h2>
+                            <p class="subtitle">Sin historial también puedes calificar — ¡descúbrelo!</p>
+
+                            <div class="form-group">
+                                <label>¿Cuál es tu Score Crediticio aproximado?</label>
+                                <div class="score-options" id="scoreCards">
+                                    <label class="score-card" data-value="800">
+                                        <input type="radio" name="scorePick" value="800">
+                                        <div class="score-card-inner">
+                                            <i class="fa-solid fa-trophy" style="color:#10b981"></i>
+                                            <strong>750 - 850+</strong>
+                                            <span>Excelente</span>
+                                        </div>
+                                    </label>
+                                    <label class="score-card" data-value="700">
+                                        <input type="radio" name="scorePick" value="700">
+                                        <div class="score-card-inner">
+                                            <i class="fa-solid fa-thumbs-up" style="color:#3b82f6"></i>
+                                            <strong>680 - 749</strong>
+                                            <span>Bueno</span>
+                                        </div>
+                                    </label>
+                                    <label class="score-card" data-value="600">
+                                        <input type="radio" name="scorePick" value="600">
+                                        <div class="score-card-inner">
+                                            <i class="fa-solid fa-chart-line" style="color:#f59e0b"></i>
+                                            <strong>600 - 679</strong>
+                                            <span>Regular</span>
+                                        </div>
+                                    </label>
+                                    <label class="score-card" data-value="500">
+                                        <input type="radio" name="scorePick" value="500">
+                                        <div class="score-card-inner">
+                                            <i class="fa-solid fa-seedling" style="color:#ef4444"></i>
+                                            <strong>Bajo / Sin Historial</strong>
+                                            <span>Necesita construir</span>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- Toggle: ingreso exacto -->
+                                <div class="score-toggle-row">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="toggleExactScore">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-label">Conozco mi score exacto</span>
+                                </div>
+
+                                <!-- Input exacto (oculto por defecto) -->
+                                <div class="exact-score-wrap hidden" id="exactScoreWrap">
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        <input type="number" id="exactScoreInput" placeholder="Ej. 720" min="300"
+                                            max="850">
+                                    </div>
+                                    <p class="score-range-hint">Ingresa un valor entre 300 y 850</p>
+                                </div>
+
+                                <input type="hidden" id="score">
+                                <p class="score-hint hidden" id="scoreHint">⚠️ Por favor selecciona un rango o ingresa
+                                    tu score exacto.</p>
+                            </div>
+
+                            <div class="btn-row">
+                                <button type="button" class="btn-back-step" id="btnPrevStep">
+                                    <i class="fa-solid fa-arrow-left"></i> Atrás
+                                </button>
+                                <button type="submit" class="btn-primary flex-1" id="btnSubmit">
+                                    Generar mi Diagnóstico <i class="fa-solid fa-bolt"></i>
+                                </button>
+                            </div>
+                            <p class="disclaimer">Esta herramienta es educativa y no garantiza aprobación bancaria real.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= CÓMO FUNCIONA SECTION ========= -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="main-container">
+            <h2 class="section-title">¿Cómo funciona <span class="gradient-text">CreditoRD</span>?</h2>
+            <p class="section-sub">Un proceso simple de 3 pasos. Sin contraseñas, sin formularios interminables.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa-solid fa-keyboard"></i></div>
+                    <div class="step-number">01</div>
+                    <h3>Ingresa tus datos</h3>
+                    <p>Llena el formulario de 2 pasos con tu situación financiera básica. Tus datos nunca se almacenan
+                        ni se comparten.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="step-number">02</div>
+                    <h3>Motor de análisis</h3>
+                    <p>Nuestros algoritmos calculan tu DTI, evalúan tu historial y tu estabilidad laboral en segundos.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa-solid fa-medal"></i></div>
+                    <div class="step-number">03</div>
+                    <h3>Recibe tu diagnóstico</h3>
+                    <p>Obtén un diagnóstico personalizado con recomendaciones de productos y pasos concretos para
+                        mejorar tu perfil.</p>
+                </div>
+            </div>
+            <div class="cta-center">
+                <button class="btn-primary btn-inline" id="btnScrollToForm">
+                    <i class="fa-solid fa-arrow-up"></i> Comenzar mi Evaluación
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= GLOSSARY / EDUCATION SECTION ========= -->
+    <section class="glossary-section" id="educacion-financiera">
+        <div class="main-container">
+            <h2 class="section-title">📚 Educación Financiera</h2>
+            <p class="section-sub">Entiende los términos que los bancos usan para evaluarte.</p>
+            <div class="glossary-grid">
+                <div class="glossary-card">
+                    <div class="glossary-icon"><i class="fa-solid fa-percent"></i></div>
+                    <strong>DTI (Deuda / Ingreso)</strong>
+                    <p>Porcentaje de tus ingresos ya comprometidos con deudas. Menos del 40% se considera saludable por
+                        la mayoría de bancos dominicanos.</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon"><i class="fa-solid fa-star"></i></div>
+                    <strong>Score Crediticio</strong>
+                    <p>Número entre 300 y 850 que resume tu historial de pagos. Mientras más alto, mejores tasas,
+                        mayores límites y más productos disponibles.</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon"><i class="fa-solid fa-credit-card"></i></div>
+                    <strong>Tarjeta Garantizada</strong>
+                    <p>Producto ideal para construir o rehabilitar historial. Funciona con tu propio depósito como
+                        garantía — sin necesidad de historial previo.</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <strong>Capacidad de Pago</strong>
+                    <p>Lo que te queda libre después de cubrir todos tus gastos. Los bancos analizan esto para
+                        determinar cuánto crédito puedes asumir.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= LOADING SECTION ========= -->
+    <section class="loading-section hidden" id="loadingSection">
+        <div class="loader-ring"></div>
+        <h2>Analizando tu Perfil...</h2>
+        <div class="loading-steps">
+            <p id="lstep1"><i class="fa-solid fa-check-circle"></i> Calculando Capacidad de Pago...</p>
+            <p id="lstep2" class="pending"><i class="fa-solid fa-circle-notch fa-spin"></i> Evaluando Historial
+                Crediticio...</p>
+            <p id="lstep3" class="pending"><i class="fa-solid fa-circle-notch fa-spin"></i> Generando Recomendaciones...
+            </p>
+        </div>
+    </section>
+
+    <!-- ========= RESULT SECTION ========= -->
+    <section class="result-section hidden" id="resultSection">
+        <div class="main-container">
+            <button class="btn-back" id="btnBack"><i class="fa-solid fa-arrow-left"></i> Nueva Evaluación</button>
+
+            <div class="result-header">
+                <h2>Tu Diagnóstico Financiero</h2>
+                <div class="verdict-badge" id="verdictBadge">Excelente</div>
+            </div>
+
+            <div class="result-grid">
+                <!-- Metrics + Advice -->
+                <div class="card advice-card">
+                    <h3><i class="fa-solid fa-chart-pie text-warning"></i> Tus Métricas Clave</h3>
+
+                    <div class="gauge-container">
+                        <canvas id="dtiGauge" width="180" height="100"></canvas>
+                        <div class="gauge-label">
+                            <strong id="resDti">25%</strong>
+                            <span>DTI (Deuda/Ingreso)</span>
+                        </div>
+                    </div>
+
+                    <div class="metrics-row">
+                        <div class="metric-mini">
+                            <span>Ingreso Disponible Mensual</span>
+                            <strong id="resDisposable">RD$ 25,000</strong>
+                        </div>
+                        <div class="metric-mini">
+                            <span>Confianza del Diagnóstico</span>
+                            <strong id="resConfidence" class="text-secondary">Alta</strong>
+                        </div>
+                    </div>
+
+                    <div class="advice-box">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <p id="adviceText">Tienes un perfil muy sólido.</p>
+                    </div>
+
+                    <div class="tips-section" id="tipsSection">
+                        <h4><i class="fa-solid fa-list-check"></i> Pasos para mejorar tu perfil</h4>
+                        <ul id="tipsList"></ul>
+                    </div>
+                </div>
+
+                <!-- Product + Share -->
+                <div class="result-right">
+                    <div class="card product-card">
+                        <h3><i class="fa-solid fa-graduation-cap text-primary"></i> Tipo de producto que suele aplicar
+                        </h3>
+                        <p class="product-edu-sub">Basado en tu perfil, este tipo de producto financiero es el que
+                            generalmente se otorga a personas con métricas similares.</p>
+                        <div class="product-visual" id="productVisual">
+                            <div class="product-badge" id="productBadge">ORIENTACIÓN</div>
+                            <h4 id="productName">Tarjeta de Crédito Platinum</h4>
+                            <p id="productDesc">Ideal para aprovechar beneficios VIP en viajes.</p>
+                        </div>
+                        <p class="product-disclaimer"><i class="fa-solid fa-circle-info"></i> Esto es orientación
+                            educativa, no una oferta. Consulta con tu banco o cooperativa de confianza.</p>
+                    </div>
+
+                    <button class="btn-share" id="btnShare">
+                        <i class="fa-solid fa-share-nodes"></i> Compartir mi Diagnóstico
+                    </button>
+                    <div class="share-toast hidden" id="shareToast">¡Copiado al portapapeles! Compártelo por WhatsApp 📲
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= FOOTER ========= -->
+    <footer class="footer">
+        <div class="main-container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fa-solid fa-ranking-star"></i> Credito<span class="highlight">RD</span>
+                </div>
+                <p>Herramienta educativa gratuita para consumidores dominicanos. No somos un banco ni una entidad
+                    financiera.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#educacion-financiera">Educación Financiera</a>
+                <a href="#heroSection">Evalúame Gratis</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
