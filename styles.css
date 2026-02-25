@@ -1237,3 +1237,948 @@ body {
         text-align: center;
     }
 }
+
+/* =========================================================
+   FICO SCORE CALCULATOR — Design System
+   ========================================================= */
+
+/* ── Section Shell ─────────────────────────────────────── */
+.fico-section {
+    padding: 5rem 0 4rem;
+    position: relative;
+    background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0, 45, 98, .18) 0%, transparent 70%),
+        var(--bg-base);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+/* ── Section Header ────────────────────────────────────── */
+.fico-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    padding: 0 1.5rem;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: .6rem;
+}
+
+.section-sub {
+    font-size: .97rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ── 2-Column Main Layout ──────────────────────────────── */
+.fico-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 2rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    align-items: start;
+}
+
+/* LEFT: inputs column */
+.fico-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* RIGHT: sticky results panel */
+.fico-results-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 90px;
+}
+
+/* ── Factor Cards (Left) ───────────────────────────────── */
+.fico-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent, var(--rd-blue-light));
+    border-radius: 20px;
+    padding: 1.4rem 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.fico-card:hover {
+    border-color: var(--accent, var(--rd-blue-light));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .35), 0 0 0 1px var(--accent, var(--rd-blue-light));
+}
+
+.fico-card-head {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    margin-bottom: 1.2rem;
+}
+
+.fico-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.fico-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.fico-card-title {
+    font-size: .93rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.fico-card-sub {
+    font-size: .77rem;
+    color: var(--text-muted);
+}
+
+.fico-weight-badge {
+    margin-left: auto;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .2rem .7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Slider group */
+.fico-slider-group {
+    margin-bottom: .6rem;
+}
+
+.fico-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .82rem;
+    color: var(--text-muted);
+    margin-bottom: .6rem;
+    font-weight: 500;
+}
+
+.fico-val-pill {
+    background: rgba(0, 45, 98, .4);
+    border: 1px solid rgba(0, 63, 138, .5);
+    color: var(--text-main);
+    padding: .15rem .75rem;
+    border-radius: 20px;
+    font-size: .82rem;
+    font-weight: 700;
+    min-width: 56px;
+    text-align: center;
+    transition: background .3s;
+}
+
+/* Slider track */
+.fico-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .08);
+    outline: none;
+    cursor: pointer;
+    transition: background .1s;
+}
+
+.fico-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rd-blue-light), var(--rd-red));
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 45, 98, .7);
+    transition: transform .15s, box-shadow .15s;
+}
+
+.fico-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    box-shadow: 0 4px 16px rgba(207, 20, 43, .55);
+}
+
+.fico-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rd-blue-light), var(--rd-red));
+    border: none;
+    cursor: pointer;
+}
+
+.fico-slider-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: .68rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Tip */
+.fico-tip {
+    font-size: .79rem;
+    color: var(--text-muted);
+    background: rgba(245, 158, 11, .06);
+    border-left: 3px solid rgba(245, 158, 11, .5);
+    border-radius: 0 8px 8px 0;
+    padding: .55rem .9rem;
+    margin-top: .9rem;
+    line-height: 1.55;
+    display: flex;
+    gap: .4rem;
+    align-items: flex-start;
+}
+
+.fico-tip i {
+    color: #fbbf24;
+    flex-shrink: 0;
+    margin-top: .15rem;
+}
+
+/* Pills */
+.fico-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: .5rem 0 .4rem;
+}
+
+.fico-pill {
+    padding: .38rem .85rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: .77rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font-main);
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.fico-pill:hover {
+    border-color: var(--rd-blue-light);
+    color: #93c5fd;
+    background: rgba(0, 45, 98, .2);
+}
+
+.fico-pill.active {
+    background: rgba(0, 45, 98, .4);
+    border-color: var(--rd-blue-light);
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+/* Action row */
+.fico-action-row {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.25rem 1.5rem;
+    backdrop-filter: blur(12px);
+}
+
+/* ── Results Panel (Right) ─────────────────────────────── */
+
+/* Score card */
+.fico-score-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--rd-red);
+    border-radius: 20px;
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    text-align: center;
+}
+
+.fico-score-eyebrow {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: .4rem;
+}
+
+#gaugesvg {
+    width: 100%;
+    max-width: 260px;
+    overflow: visible;
+}
+
+.fico-score-number {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -3px;
+    transition: color .5s;
+}
+
+.fico-score-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: .15rem;
+    transition: color .5s;
+}
+
+.fico-score-meta {
+    font-size: .7rem;
+    color: var(--text-muted);
+    margin: .3rem 0 1rem;
+}
+
+.fico-export-btn {
+    width: 100%;
+    padding: .7rem 1.2rem;
+    border-radius: 12px;
+    background: rgba(207, 20, 43, .12);
+    border: 1px solid rgba(207, 20, 43, .3);
+    color: #f87171;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.fico-export-btn:hover {
+    background: rgba(207, 20, 43, .22);
+    border-color: rgba(207, 20, 43, .5);
+    transform: translateY(-1px);
+}
+
+/* Breakdown card */
+.fico-breakdown-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--rd-blue-light);
+    border-radius: 20px;
+    padding: 1.25rem 1.4rem;
+    backdrop-filter: blur(12px);
+}
+
+.fico-section-label {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.fico-factor-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.fico-factor-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fico-factor-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-bottom: .3rem;
+    font-size: .8rem;
+}
+
+.fico-factor-w {
+    font-size: .7rem;
+    color: var(--text-muted);
+}
+
+.fico-factor-pct {
+    font-size: .8rem;
+    font-weight: 700;
+    min-width: 34px;
+    text-align: right;
+}
+
+.fico-bar-track {
+    height: 6px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fico-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .8s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Recommendations card */
+.fico-recs-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.25rem 1.4rem;
+    backdrop-filter: blur(12px);
+}
+
+.fico-rec-item {
+    display: flex;
+    gap: .7rem;
+    padding: .7rem .8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, .02);
+    margin-bottom: .6rem;
+    transition: border-color .2s;
+}
+
+.fico-rec-item:last-child {
+    margin-bottom: 0;
+}
+
+.fico-rec-item:hover {
+    border-color: rgba(255, 255, 255, .15);
+}
+
+.fico-rec-item.high {
+    border-left: 3px solid #ef4444;
+}
+
+.fico-rec-item.medium {
+    border-left: 3px solid #f59e0b;
+}
+
+.fico-rec-item.low {
+    border-left: 3px solid var(--rd-blue-light);
+}
+
+.fico-rec-item.positive {
+    border-left: 3px solid #10b981;
+}
+
+.fico-rec-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.fico-rec-title {
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.fico-rec-text {
+    font-size: .74rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Score colors */
+.color-poor {
+    color: #ef4444;
+}
+
+.color-fair {
+    color: #f97316;
+}
+
+.color-good {
+    color: #fbbf24;
+}
+
+.color-very-good {
+    color: #6ee7b7;
+}
+
+.color-exceptional {
+    color: #10b981;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .fico-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .fico-results-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    .fico-section {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .fico-card {
+        padding: 1.1rem 1.2rem;
+    }
+
+    .fico-score-number {
+        font-size: 3.5rem;
+    }
+}
+
+
+.section-header-centered {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(207, 20, 43, .1);
+    border: 1px solid rgba(207, 20, 43, .22);
+    color: #f87171;
+    font-size: .82rem;
+    font-weight: 600;
+    padding: .35rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: .5rem;
+}
+
+.section-sub {
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+/* Gauge row */
+.fico-gauge-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 800px) {
+    .fico-gauge-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fico-gauge-card {
+    text-align: center;
+    border-top: 4px solid var(--rd-blue);
+}
+
+.fico-score-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fico-score-card {
+    border-top: 4px solid var(--rd-red);
+    text-align: center;
+}
+
+.score-eyebrow {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: .2rem;
+}
+
+.score-display {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    transition: color .5s;
+}
+
+.score-label-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    transition: color .5s;
+}
+
+.score-range-text {
+    font-size: .73rem;
+    color: var(--text-muted);
+    margin-top: .2rem;
+}
+
+/* Score colors */
+.color-poor {
+    color: #ef4444;
+}
+
+.color-fair {
+    color: #f97316;
+}
+
+.color-good {
+    color: #fbbf24;
+}
+
+.color-very-good {
+    color: #6ee7b7;
+}
+
+.color-exceptional {
+    color: #10b981;
+}
+
+.gauge-rating {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 4px;
+    transition: color .5s;
+}
+
+.gauge-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Factor breakdown */
+.fico-factors-card {
+    border-top: 4px solid var(--rd-red);
+}
+
+.fico-factors-title {
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.factor-row {
+    margin-bottom: .9rem;
+}
+
+.factor-row:last-child {
+    margin-bottom: 0;
+}
+
+.factor-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .35rem;
+}
+
+.factor-name {
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.factor-weight {
+    font-size: .7rem;
+    color: var(--text-muted);
+}
+
+.factor-pct {
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.progress-track {
+    height: 6px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .8s cubic-bezier(.4, 0, .2, 1), background .5s;
+    background: linear-gradient(90deg, var(--rd-blue-light), var(--rd-red));
+}
+
+/* Recommendations */
+.rec-item {
+    display: flex;
+    gap: .7rem;
+    margin-bottom: .75rem;
+    padding: .75rem .9rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, .025);
+    transition: border-color .2s;
+}
+
+.rec-item:last-child {
+    margin-bottom: 0;
+}
+
+.rec-item:hover {
+    border-color: rgba(255, 255, 255, .18);
+}
+
+.rec-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.rec-title {
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.rec-text {
+    font-size: .75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.rec-item.high {
+    border-left: 3px solid #ef4444;
+}
+
+.rec-item.medium {
+    border-left: 3px solid #f59e0b;
+}
+
+.rec-item.low {
+    border-left: 3px solid var(--rd-blue-light);
+}
+
+.rec-item.positive {
+    border-left: 3px solid #10b981;
+}
+
+/* Sliders grid */
+.fico-sliders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.fico-factor-card {
+    margin-bottom: 0 !important;
+}
+
+.fico-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    margin-bottom: 1.25rem;
+}
+
+.fico-card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+}
+
+.fico-card-title {
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.fico-card-sub {
+    font-size: .78rem;
+    color: var(--text-muted);
+    margin-top: 1px;
+}
+
+.card-weight-badge {
+    margin-left: auto;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid var(--border);
+    padding: .2rem .7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.fico-form-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .83rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: .6rem;
+}
+
+.fico-value-badge {
+    background: rgba(0, 45, 98, .35);
+    border: 1px solid rgba(0, 63, 138, .5);
+    color: var(--text-main);
+    padding: .15rem .7rem;
+    border-radius: 20px;
+    font-size: .83rem;
+    font-weight: 700;
+    min-width: 56px;
+    text-align: center;
+}
+
+.fico-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .08);
+    outline: none;
+    cursor: pointer;
+}
+
+.fico-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rd-blue-light), var(--rd-red));
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 45, 98, .6);
+    transition: transform .15s, box-shadow .15s;
+}
+
+.fico-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 14px rgba(207, 20, 43, .5);
+}
+
+.fico-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rd-blue-light), var(--rd-red));
+    border: none;
+    cursor: pointer;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .7rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.fico-hint {
+    font-size: .8rem;
+    color: var(--text-muted);
+    background: rgba(245, 158, 11, .06);
+    border-left: 3px solid var(--warning);
+    border-radius: 0 8px 8px 0;
+    padding: .6rem .9rem;
+    margin-top: .9rem;
+    line-height: 1.5;
+}
+
+.fico-hint strong {
+    color: var(--text-main);
+}
+
+.fico-type-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: .6rem 0 .9rem;
+}
+
+.fico-pill {
+    padding: .4rem .9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font-main);
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.fico-pill:hover {
+    border-color: var(--rd-blue-light);
+    color: #93c5fd;
+    background: rgba(0, 45, 98, .2);
+}
+
+.fico-pill.active {
+    background: rgba(0, 45, 98, .35);
+    border-color: var(--rd-blue-light);
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+.fico-actions-card {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+}

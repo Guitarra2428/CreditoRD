@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -23,7 +23,8 @@
             <i class="fa-solid fa-ranking-star"></i> Credito<span class="highlight">RD</span>
         </div>
         <div class="nav-links">
-            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#heroSection">Diagnóstico Financiero</a>
+            <a href="#ficoSection">Calcula tu Score</a>
             <a href="#educacion-financiera">Educación Financiera</a>
         </div>
         <div style="display: flex; align-items: center;">
@@ -186,7 +187,259 @@
         </div>
     </section>
 
-    <!-- ========= CÓMO FUNCIONA SECTION ========= -->
+    <!-- ========= FICO SCORE CALCULATOR SECTION ========= -->
+    <section id="ficoSection" class="fico-section">
+        <!-- Section Header -->
+        <div class="fico-header">
+            <div class="section-eyebrow"><i class="fa-solid fa-chart-bar"></i> Metodología FICO</div>
+            <h2 class="section-title">Calcula tu <span class="gradient-text">Score Crediticio</span></h2>
+            <p class="section-sub">Ajusta los 5 factores y obtén tu puntaje estimado (300–850) en tiempo real. Sin
+                registro, sin datos personales.</p>
+        </div>
+
+        <!-- Main 2-col layout: Sliders | Results Panel -->
+        <div class="fico-layout">
+
+            <!-- ── LEFT: 5 Factor Sliders ── -->
+            <div class="fico-inputs">
+
+                <!-- Factor 1 -->
+                <div class="fico-card" style="--accent:#10b981">
+                    <div class="fico-card-head">
+                        <div class="fico-card-icon"
+                            style="background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3)">
+                            <i class="fa-solid fa-calendar-check" style="color:#10b981"></i>
+                        </div>
+                        <div class="fico-card-meta">
+                            <span class="fico-card-title">Historial de Pago</span>
+                            <span class="fico-card-sub">¿Qué tan seguido pagas a tiempo?</span>
+                        </div>
+                        <span class="fico-weight-badge">35%</span>
+                    </div>
+                    <div class="fico-slider-group">
+                        <div class="fico-label-row">
+                            <span>Pagos realizados a tiempo</span>
+                            <span class="fico-val-pill" id="displayOnTime">85%</span>
+                        </div>
+                        <input type="range" class="fico-slider" id="onTimePercent" min="0" max="100" step="1"
+                            value="85" />
+                        <div class="fico-slider-ends"><span>0%</span><span>100%</span></div>
+                    </div>
+                    <div class="fico-tip"><i class="fa-solid fa-lightbulb"></i> El factor más importante. Activa pagos
+                        automáticos para llegar al 100%.</div>
+                </div>
+
+                <!-- Factor 2 -->
+                <div class="fico-card" style="--accent:#3b82f6">
+                    <div class="fico-card-head">
+                        <div class="fico-card-icon"
+                            style="background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.3)">
+                            <i class="fa-solid fa-credit-card" style="color:#60a5fa"></i>
+                        </div>
+                        <div class="fico-card-meta">
+                            <span class="fico-card-title">Cantidades Adeudadas</span>
+                            <span class="fico-card-sub">¿Cuánto de tu límite usas?</span>
+                        </div>
+                        <span class="fico-weight-badge">30%</span>
+                    </div>
+                    <div class="fico-slider-group">
+                        <div class="fico-label-row">
+                            <span>Crédito utilizado</span>
+                            <span class="fico-val-pill" id="displayUtil">35%</span>
+                        </div>
+                        <input type="range" class="fico-slider" id="utilizationPercent" min="0" max="100" step="1"
+                            value="35" />
+                        <div class="fico-slider-ends"><span>0% — Sin deuda</span><span>100% — Al límite</span></div>
+                    </div>
+                    <div class="fico-tip"><i class="fa-solid fa-lightbulb"></i> Zona ideal: menos del 30%. Con RD$100k
+                        de límite → máx. RD$30k.</div>
+                </div>
+
+                <!-- Factor 3 -->
+                <div class="fico-card" style="--accent:#f59e0b">
+                    <div class="fico-card-head">
+                        <div class="fico-card-icon"
+                            style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3)">
+                            <i class="fa-solid fa-hourglass-half" style="color:#fbbf24"></i>
+                        </div>
+                        <div class="fico-card-meta">
+                            <span class="fico-card-title">Antigüedad del Historial</span>
+                            <span class="fico-card-sub">¿Cuánto tiempo llevas con crédito?</span>
+                        </div>
+                        <span class="fico-weight-badge">15%</span>
+                    </div>
+                    <div class="fico-slider-group">
+                        <div class="fico-label-row">
+                            <span>Años de historial crediticio</span>
+                            <span class="fico-val-pill" id="displayAge">4 año(s)</span>
+                        </div>
+                        <input type="range" class="fico-slider" id="creditAgeYears" min="0" max="30" step="1"
+                            value="4" />
+                        <div class="fico-slider-ends"><span>0 años</span><span>30+ años</span></div>
+                    </div>
+                    <div class="fico-tip"><i class="fa-solid fa-triangle-exclamation"></i> No cierres cuentas antiguas —
+                        baja tu promedio de antigüedad.</div>
+                </div>
+
+                <!-- Factor 4 -->
+                <div class="fico-card" style="--accent:#f97316">
+                    <div class="fico-card-head">
+                        <div class="fico-card-icon"
+                            style="background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.3)">
+                            <i class="fa-solid fa-building-columns" style="color:#fb923c"></i>
+                        </div>
+                        <div class="fico-card-meta">
+                            <span class="fico-card-title">Tipos de Crédito</span>
+                            <span class="fico-card-sub">¿Qué variedad de créditos tienes activos?</span>
+                        </div>
+                        <span class="fico-weight-badge">10%</span>
+                    </div>
+                    <div class="fico-slider-group">
+                        <div class="fico-label-row">
+                            <span>Tipos activos</span>
+                            <span class="fico-val-pill"><span id="creditTypesCount">1</span> tipo(s)</span>
+                        </div>
+                        <div class="fico-pills" id="typePills">
+                            <button class="fico-pill active" data-type="tarjeta"><i class="fa-solid fa-credit-card"></i>
+                                Tarjeta</button>
+                            <button class="fico-pill" data-type="prestamo"><i class="fa-solid fa-money-bill-wave"></i>
+                                Préstamo</button>
+                            <button class="fico-pill" data-type="auto"><i class="fa-solid fa-car"></i> Auto</button>
+                            <button class="fico-pill" data-type="hipoteca"><i class="fa-solid fa-house"></i>
+                                Hipoteca</button>
+                            <button class="fico-pill" data-type="estudiante"><i class="fa-solid fa-graduation-cap"></i>
+                                Estudiantil</button>
+                        </div>
+                    </div>
+                    <div class="fico-tip"><i class="fa-solid fa-lightbulb"></i> Una mezcla sana demuestra que manejas
+                        distintas obligaciones.</div>
+                </div>
+
+                <!-- Factor 5 -->
+                <div class="fico-card" style="--accent:#ef4444">
+                    <div class="fico-card-head">
+                        <div class="fico-card-icon"
+                            style="background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3)">
+                            <i class="fa-solid fa-magnifying-glass-chart" style="color:#f87171"></i>
+                        </div>
+                        <div class="fico-card-meta">
+                            <span class="fico-card-title">Consultas de Crédito</span>
+                            <span class="fico-card-sub">¿Cuántas revisiones en el último año?</span>
+                        </div>
+                        <span class="fico-weight-badge">10%</span>
+                    </div>
+                    <div class="fico-slider-group">
+                        <div class="fico-label-row">
+                            <span>Consultas en los últimos 12 meses</span>
+                            <span class="fico-val-pill" id="displayInquiries">2</span>
+                        </div>
+                        <input type="range" class="fico-slider" id="inquiriesCount" min="0" max="10" step="1"
+                            value="2" />
+                        <div class="fico-slider-ends"><span>0 — Ninguna</span><span>10 — Muchas</span></div>
+                    </div>
+                    <div class="fico-tip"><i class="fa-solid fa-triangle-exclamation"></i> Cada consulta permanece en tu
+                        historial por 2 años. Menos es mejor.</div>
+                </div>
+
+                <!-- Actions row -->
+                <div class="fico-action-row">
+                    <button class="btn-primary" id="btnFicoSave" style="margin-top:0;flex:1">
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar Progreso
+                    </button>
+                    <button class="btn-back-step" id="btnFicoClear" style="white-space:nowrap">
+                        <i class="fa-solid fa-rotate-left"></i> Reiniciar
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- ── RIGHT: Sticky Results Panel ── -->
+            <div class="fico-results-panel">
+
+                <!-- Score Card -->
+                <div class="fico-score-card">
+                    <div class="fico-score-eyebrow">TU SCORE ESTIMADO</div>
+                    <svg id="gaugesvg" viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg"></svg>
+                    <div class="fico-score-number color-fair" id="sidebarScore">618</div>
+                    <div class="fico-score-label color-fair" id="sidebarLabel">⚠️ Regular</div>
+                    <div class="fico-score-meta">Rango 300 – 850 · Metodología FICO</div>
+                    <div class="gauge-rating" id="gaugeRating" style="display:none"></div>
+                    <button class="fico-export-btn" id="btnFicoExport">
+                        <i class="fa-solid fa-file-export"></i> Exportar Reporte FICO
+                    </button>
+                </div>
+
+                <!-- Factor Breakdown -->
+                <div class="fico-breakdown-card">
+                    <div class="fico-section-label"><i class="fa-solid fa-chart-bar"></i> Desglose por Factor</div>
+                    <div class="fico-factor-list">
+                        <div class="fico-factor-item">
+                            <div class="fico-factor-row"><span style="color:#10b981"><i
+                                        class="fa-solid fa-calendar-check"></i> Historial Pago</span><span
+                                    class="fico-factor-w">35%</span><span class="fico-factor-pct"
+                                    id="pct-paymentHistory">—</span></div>
+                            <div class="fico-bar-track">
+                                <div class="fico-bar" id="bar-paymentHistory" style="width:0%;background:#10b981"></div>
+                            </div>
+                        </div>
+                        <div class="fico-factor-item">
+                            <div class="fico-factor-row"><span style="color:#60a5fa"><i
+                                        class="fa-solid fa-credit-card"></i> Cantidades Adeudadas</span><span
+                                    class="fico-factor-w">30%</span><span class="fico-factor-pct"
+                                    id="pct-amountsOwed">—</span></div>
+                            <div class="fico-bar-track">
+                                <div class="fico-bar" id="bar-amountsOwed" style="width:0%;background:#3b82f6"></div>
+                            </div>
+                        </div>
+                        <div class="fico-factor-item">
+                            <div class="fico-factor-row"><span style="color:#fbbf24"><i
+                                        class="fa-solid fa-hourglass-half"></i> Duración Historial</span><span
+                                    class="fico-factor-w">15%</span><span class="fico-factor-pct"
+                                    id="pct-creditAge">—</span></div>
+                            <div class="fico-bar-track">
+                                <div class="fico-bar" id="bar-creditAge" style="width:0%;background:#f59e0b"></div>
+                            </div>
+                        </div>
+                        <div class="fico-factor-item">
+                            <div class="fico-factor-row"><span style="color:#fb923c"><i
+                                        class="fa-solid fa-building-columns"></i> Tipos de Crédito</span><span
+                                    class="fico-factor-w">10%</span><span class="fico-factor-pct"
+                                    id="pct-creditMix">—</span></div>
+                            <div class="fico-bar-track">
+                                <div class="fico-bar" id="bar-creditMix" style="width:0%;background:#f97316"></div>
+                            </div>
+                        </div>
+                        <div class="fico-factor-item">
+                            <div class="fico-factor-row"><span style="color:#f87171"><i
+                                        class="fa-solid fa-magnifying-glass"></i> Consultas</span><span
+                                    class="fico-factor-w">10%</span><span class="fico-factor-pct"
+                                    id="pct-inquiries">—</span></div>
+                            <div class="fico-bar-track">
+                                <div class="fico-bar" id="bar-inquiries" style="width:0%;background:#ef4444"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="fico-recs-card">
+                    <div class="fico-section-label"><i class="fa-solid fa-lightbulb"></i> Recomendaciones</div>
+                    <div id="recsContainer">
+                        <div class="fico-rec-item">
+                            <div class="fico-rec-icon"><i class="fa-solid fa-sliders"></i></div>
+                            <div>
+                                <div class="fico-rec-title">Ajusta los controles</div>
+                                <div class="fico-rec-text">Mueve los sliders de la izquierda para ver recomendaciones
+                                    personalizadas.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section class="how-it-works" id="como-funciona">
         <div class="main-container">
             <h2 class="section-title">¿Cómo funciona <span class="gradient-text">CreditoRD</span>?</h2>
@@ -376,6 +629,10 @@
         </div>
     </footer>
 
+    <script src="calculator.js"></script>
+    <script src="storage.js"></script>
+    <script src="charts.js"></script>
+    <script src="report.js"></script>
     <script src="app.js"></script>
 </body>
 

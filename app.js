@@ -391,3 +391,176 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
     }
 });
+
+// ═══════════════════════════════════════════════════════════════
+//  FICO SCORE CALCULATOR MODULE (merged from tuCreditoRD)
+// ═══════════════════════════════════════════════════════════════
+(function initFicoCalculator() {
+    'use strict';
+
+    const ficoState = {
+        inputs: { onTimePercent: 85, utilizationPercent: 35, creditAgeYears: 4, creditTypes: 2, inquiriesCount: 2 },
+        activePills: new Set(['tarjeta']),
+        result: null,
+    };
+
+    let prevScore = 618;
+
+    function init() {
+        if (!document.getElementById('gaugesvg')) return; // not loaded yet
+        loadSaved();
+        bindSliders();
+        bindPills();
+        bindActions();
+        updateAll();
+    }
+
+    // ── LocalStorage ──────────────────────────────────────────
+    function loadSaved() {
+        const data = (typeof Storage !== 'undefined') ? window.Storage?.load?.() : null;
+        if (!data) return;
+        if (data.inputs) Object.assign(ficoState.inputs, data.inputs);
+        if (data.activePills) ficoState.activePills = new Set(data.activePills);
+        applyToDOM();
+    }
+
+    function applyToDOM() {
+        Object.entries(ficoState.inputs).forEach(([k, v]) => {
+            const el = document.getElementById(k);
+            if (el) el.value = v;
+        });
+        document.querySelectorAll('.fico-pill').forEach(p => {
+            p.classList.toggle('active', ficoState.activePills.has(p.dataset.type));
+        });
+    }
+
+    // ── Sliders ───────────────────────────────────────────────
+    function bindSliders() {
+        const defs = [
+            { id: 'onTimePercent', display: 'displayOnTime', suffix: '%' },
+            { id: 'utilizationPercent', display: 'displayUtil', suffix: '%' },
+            { id: 'creditAgeYears', display: 'displayAge', suffix: ' año(s)' },
+            { id: 'inquiriesCount', display: 'displayInquiries', suffix: '' },
+        ];
+        defs.forEach(({ id, display, suffix }) => {
+            const slider = document.getElementById(id);
+            const badge = document.getElementById(display);
+            if (!slider) return;
+
+            const refresh = () => {
+                const val = Number(slider.value);
+                ficoState.inputs[id] = val;
+                if (badge) badge.textContent = val + suffix;
+                const pct = ((val - slider.min) / (slider.max - slider.min)) * 100;
+                slider.style.background = `linear-gradient(to right,rgba(0,63,138,.8) ${pct}%,rgba(255,255,255,.08) ${pct}%)`;
+                updateAll();
+            };
+
+            slider.addEventListener('input', refresh);
+            refresh();
+        });
+    }
+
+    // ── Pills ─────────────────────────────────────────────────
+    function bindPills() {
+        document.querySelectorAll('.fico-pill').forEach(pill => {
+            const type = pill.dataset.type;
+            pill.classList.toggle('active', ficoState.activePills.has(type));
+
+            pill.addEventListener('click', () => {
+                if (ficoState.activePills.has(type)) {
+                    if (ficoState.activePills.size === 1) return;
+                    ficoState.activePills.delete(type);
+                    pill.classList.remove('active');
+                } else {
+                    ficoState.activePills.add(type);
+                    pill.classList.add('active');
+                }
+                ficoState.inputs.creditTypes = ficoState.activePills.size;
+                const ct = document.getElementById('creditTypesCount');
+                if (ct) ct.textContent = ficoState.inputs.creditTypes;
+                updateAll();
+            });
+        });
+    }
+
+    // ── Actions ───────────────────────────────────────────────
+    function bindActions() {
+        document.getElementById('btnFicoSave')?.addEventListener('click', () => {
+            window.Storage?.save?.({ inputs: ficoState.inputs, activePills: [...ficoState.activePills] });
+            showToast('💾 Progreso guardado');
+        });
+        document.getElementById('btnFicoClear')?.addEventListener('click', () => {
+            window.Storage?.clear?.();
+            showToast('🗑️ Datos eliminados');
+        });
+        document.getElementById('btnFicoExport')?.addEventListener('click', () => {
+            if (ficoState.result) window.Report?.generate?.(ficoState.result, ficoState.inputs);
+        });
+    }
+
+    // ── Calculation + Render ──────────────────────────────────
+    function updateAll() {
+        if (!window.CreditCalculator) return;
+        const result = window.CreditCalculator.calculateScore(ficoState.inputs);
+        ficoState.result = result;
+
+        // Gauge SVG
+        if (window.Charts) window.Charts.renderGauge(result.score);
+
+        // Sidebar score
+        const scoreEl = document.getElementById('sidebarScore');
+        const labelEl = document.getElementById('sidebarLabel');
+        const ratingEl = document.getElementById('gaugeRating');
+
+        if (scoreEl) {
+            if (window.Charts) window.Charts.animateScore(scoreEl, prevScore, result.score, 800);
+            scoreEl.className = `score-display color-${result.color}`;
+        }
+        if (labelEl) { labelEl.textContent = `${result.emoji} ${result.rating}`; labelEl.className = `score-label-text color-${result.color}`; }
+        if (ratingEl) { ratingEl.textContent = `${result.emoji} ${result.rating}`; ratingEl.className = `gauge-rating color-${result.color}`; }
+
+        prevScore = result.score;
+
+        // Factor bars
+        if (window.Charts) window.Charts.renderFactorBars(result.factors);
+
+        // Recommendations
+        renderRecs(result.recommendations);
+    }
+
+    function renderRecs(recs) {
+        const container = document.getElementById('recsContainer');
+        if (!container) return;
+        container.innerHTML = recs.map(r =>
+            `<div class="rec-item ${r.priority}">
+                <div class="rec-icon">${r.icon}</div>
+                <div><div class="rec-title">${r.title}</div><div class="rec-text">${r.text}</div></div>
+            </div>`
+        ).join('');
+    }
+
+    // ── Toast ─────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) {
+        let t = document.getElementById('ficoToast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = 'ficoToast';
+            t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:rgba(0,45,98,.7);border:1px solid rgba(0,63,138,.6);backdrop-filter:blur(12px);color:#f1f5f9;padding:.8rem 1.2rem;border-radius:12px;font-size:.88rem;font-weight:500;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:opacity .3s';
+            document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.style.opacity = '1';
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => { t.style.opacity = '0'; }, 3000);
+    }
+
+    // Init after DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
